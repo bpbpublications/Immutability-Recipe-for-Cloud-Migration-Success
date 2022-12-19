@@ -1,0 +1,70 @@
+{
+    "version": "1",
+    "id": "AMI-10ImmutableInfraDeregisterExample",
+    "detail-type": "EC2 Deregister AMI",
+    "source": "aws.ec2",
+    "account": "5832938498",
+    "time": "yyyy-mm-ddThh:mm:ssZ",
+    "region": "us-east-1",
+    "resources":["arn:aws:ec2:us-east-1::image/ami-5832938498immutable "],
+    "detail": {
+        "RequestId": "immu-7abc-9ddbc-aa64-77aabbcd",
+        "ImageId": "ami-5832938498immutable",
+        "State": "available"
+            }
+}
+
+
+
+{
+    "version": "1",
+    "id": "AMI-10ImmutableInfraDeregisterExample",
+    "detail-type": "EC2 Deregister AMI",
+    "source": "aws.ec2",
+    "account": "5832938498",
+    "time": "yyyy-mm-ddThh:mm:ssZ",
+    "region": "us-east-1",
+    "resources":["arn:aws:ec2:us-east-1::image/ami-5832938498immutable "],
+    "detail": {
+        "RequestId": "immu-7abc-9ddbc-aa64-77aabbcd",
+        "ImageId": "ami-5832938498immutable",
+        "State": "deregistered"
+            }
+}
+
+
+{
+    "Images": [
+        {
+            "VirtualizationType": "hvm", 
+            "Description": "Red Hat",
+            "Hypervisor": "xen", 
+            "EnaSupport": true, 
+            "ImageId": "ami-10ImmutableEXAMPLE",
+            "State": "available", 
+            "BlockDeviceMappings": [
+                {
+                    "DeviceName": "/test/sda1", 
+                    "Ebs": {
+                        "SnapshotId": "snap-12324", 
+                        "DeleteOnTermination": false, 
+                        "VolumeType": "gp3", 
+                        "VolumeSize": 100, 
+                        "Encrypted": false
+                    }
+                }
+            ], 
+            "Architecture": "x86_64", 
+            "ImageLocation":"5832938498/RHEL-8.0.0_HVM-20190618-x86_64-1-Hourly2-GP3", 
+            "RootDeviceType": "ebs", 
+            "OwnerId": "5832938498",
+            "PlatformDetails": "Linux",
+            "UsageOperation": "RunInstances:0010", 
+            "RootDeviceName": "/test/sda1", 
+            "CreationDate": "2022-07-115T13:17:12.000Z", 
+            "Public": true, 
+            "ImageType": "machine", 
+            "Name": "RHEL-8.0.0_HVM-20220711-x86_64-1-Hourly2-GP3"
+        }
+    ]
+}

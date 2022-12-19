@@ -1,0 +1,139 @@
+Resources:
+  Function:
+    Type: AWS::Lambda::Function
+    Properties:
+      Role: !Ref FunctionRole 
+      Handler: immutable.handler
+      Code:
+        S3Bucket: imm-bucket
+        S3Key: immutable.zip
+      MemorySize: 10241
+      Runtime: nodejs14.x
+      Timeout: 400
+
+
+
+# Not complete template
+ExternalAlbSecurityGroup:
+  Properties:
+    GroupDescription: 'Security group of External LoadBalancer'
+    VpcId:
+      Ref: vpc
+  Type: AWS::EC2::SecurityGroup
+ExternalAlbSecurityGroupHttpIngress:
+  Properties:
+    CidrIp: 0.0.0.0/0
+    FromPort: 80
+# Wide open CIDR block
+    GroupId:
+      Ref: ExternalAlbSecurityGroup
+    IpProtocol: tcp
+    ToPort: 80
+  Type: AWS::EC2::SecurityGroupIngress
+
+
+{
+  "Parameters": {
+    "IncomingCidrs": "0.0.0.0/0"
+  }
+}
+
+
+# Generate plan
+$ terraform plan -out=plan.tfplan
+# Scan your plan here plan.json 
+$ terraform show -json plan.tfplan >plan.json
+# Deploy the plan
+$ terraform apply plan.tfplan
+
+AWSTemplateFormatVersion: "2010-09-09"
+Resources:
+        ImmuableInstance:
+                Type: AWS::EC2::Instance
+                Properties:
+                        InstanceType: m4.16xlarge
+                        ImageId: ami-asdfef
+
+
+require 'cfn-nag/custom_rules/base'
+
+class SampleCustomRule < BaseRule
+  def rule_text
+    'S3 buckets should be named "immutable"'
+  end
+
+  def rule_type
+    Violation::FAILING_VIOLATION
+  end
+
+  def rule_id
+    'C13' # Custom Rule #13
+  end
+
+  def audit_impl(cfn_model)
+    resources = cfn_model.resources_by_type('AWS::S3::Bucket')
+
+    violating_buckets = resources.select do |bucket|
+      bucket.bucketName != 'immutable'
+    end
+
+    violating_buckets.map(&:logical_resource_id)
+  end
+end
+
+
+{
+  "failure_count": 1,
+  "violations": [
+    {
+      "id": "C13",
+      "type": "FAIL",
+      "message": " Simple Storage Buckets should be named "immutable"",
+      "logical_resource_ids": [
+	"S3BucketReadWrite"
+"S3BucketRead",
+       ]
+    }
+
+
+# Not complete template
+EC2SecurityGroup:
+  Properties:
+    GroupDescription: 'Security group for EC2 Instance'
+    VpcId:
+      Ref: vpc
+  Type: AWS::EC2::SecurityGroup
+EC2SecurityGroupIngress:
+  Properties:
+    CidrIp: 0.0.0.0/0
+    FromPort: 22
+    GroupId:
+      Ref: EC2SecurityGroup
+    IpProtocol: tcp
+    ToPort: 22
+ 		 Type: AWS::EC2::SecurityGroupIngress
+
+
+# Partial template
+ExternalAlbSecurityGroup:
+  Properties:
+    GroupDescription: 'Security group for a External Application Load Balancer'
+    VpcId:
+      Ref: vpc
+  Type: AWS::EC2::SecurityGroup
+  Metadata:
+    cfn_nag:
+      rules_to_suppress:
+        - id: W9
+          reason: "This is a External facing ELB and CIDR is permitted."
+        - id: W2
+          reason: "This is a External facing ELB and ingress from the internet should be permitted."
+ExternalAlbSecurityGroupHttpIngress:
+  Properties:
+    CidrIp: 0.0.0.0/0
+    FromPort: 80
+    GroupId:
+      Ref: ExternalAlbSecurityGroup
+    IpProtocol: tcp
+    ToPort: 80
+  Type: AWS::EC2::SecurityGroupIngress
