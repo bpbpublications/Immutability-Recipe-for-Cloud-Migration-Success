@@ -3,7 +3,7 @@
 Cloud Migration is More Than Infrastructure Migration and Crucial to Business Economy
 
 This is the repository for [Immutability: Recipe for Cloud Migration Success
-](https://in.bpbonline.com/products/immutability-recipe-for-cloud-migration-success?variant=43853919224046),published by BPB Publications. 
+](https://bpbonline.com/products/immutability-recipe-for-cloud-migration-success),published by BPB Publications. 
 
 ## About the Book
 When migrating to the cloud, how can you minimize the time and effort spent on technical fixes? Creating a fault-tolerant, secure, automated, and scalable cloud on-demand infrastructure is a costly and time-consuming organizational operation. This book teaches you how to migrate infrastructure to the cloud utilizing programmable infrastructure. This book explains various ways to implement immutable infrastructure for scalable and secure infrastructure.
